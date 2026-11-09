@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>員榮醫院 初步施工計劃 確認單</title>
+<style>
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2129;--border:#30363d;--fg:#e6edf3;--muted:#8b949e;--accent:#58a6ff;--ok:#3fb950;--warn:#d29922;--req:#f85149}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.55 "Microsoft JhengHei",sans-serif}
+header{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--border);padding:14px 16px;z-index:5}
+h1{font-size:18px;margin:0}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.status{margin-top:8px;font-size:13px;padding:6px 10px;border-radius:8px;background:var(--card2)}
+.status.ok{border:1px solid var(--ok)} .status.miss{border:1px solid var(--req)}
+.status .miss-l{color:var(--req)}
+.wrap{padding:14px 16px 80px;max-width:820px;margin:auto}
+section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:14px}
+section h2{font-size:15px;margin:0 0 10px;color:var(--accent)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:760px){.row{grid-template-columns:1fr}}
+.field{margin-bottom:10px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:4px}
+input,select,textarea{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--fg);border-radius:8px;padding:8px 10px;font:inherit}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+.chip{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;margin-left:6px;vertical-align:middle}
+.chip.g{background:rgba(63,185,80,.18);color:var(--ok)}
+.chip.y{background:rgba(210,153,34,.18);color:var(--warn)}
+.chip.r{background:rgba(248,81,73,.2);color:var(--req)}
+.ref{background:var(--card2);border:1px dashed var(--border);border-radius:10px;padding:10px;font-size:13px;color:var(--muted)}
+.ref b{color:var(--fg)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+button{background:var(--accent);color:#0d1117;border:0;border-radius:9px;padding:11px 16px;font:inherit;font-weight:600;cursor:pointer}
+button.sec{background:var(--card2);color:var(--fg);border:1px solid var(--border)}
+.hint{font-size:12px;color:var(--muted);margin-top:8px}
+</style>
+</head>
+<body>
+<header>
+  <h1>員榮醫院 初步施工計劃 · 確認單</h1>
+  <div class="sub">收齊 🔴 必填／🟡 需確認項目後，回傳 JSON 即產出正式 10 章 .docx</div>
+  <div id="status" class="status miss"><span>⚠ 尚缺必填：</span> <span id="missList" class="miss-l">…</span></div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>A · 文件識別</h2>
+  <div class="row">
+    <div class="field"><label>文件編號 <span class="chip g">已預填</span></label><input id="A_doc" value="CC-004-核定版"></div>
+    <div class="field"><label>版次 <span class="chip y">需確認</span></label><input id="A_ver" value="v1.0（初步）"></div>
+    <div class="field"><label>業主</label><input id="A_owner" value="員榮醫療社團法人員榮總醫院（新建工程）" readonly></div>
+    <div class="field"><label>甲方／承攬</label><input id="A_party" value="擎邦國際科技（甲方）／ 零點科技（承攬）" readonly></div>
+  </div>
+</section>
+
+<section>
+  <h2>C · 設備範圍（已收齊，僅供確認）<span class="hint">數字取自兩合約匯整，無需改動</span></h2>
+  <div class="ref">
+    熱泵：熱泵主機 <b>2</b>、瓦斯鍋爐 <b>2</b>、儲槽 <b>4</b>(×10000L)、熱交換器 <b>3</b>、循環泵 <b>14</b>、PT <b>14</b>、電表/水量計 <b>14+</b>
+    <br>蒸汽：蒸汽爐 <b>3</b>、軟水 <b>1</b>、注藥 <b>1</b>、給水槽 <b>1</b>、分配器 <b>1</b>、油槽 <b>1</b>、流量計閥組 各 <b>3</b>、熱回收 <b>2</b>、熱水交換器 <b>3</b>、潔淨蒸汽 <b>2</b>
+    <br>未稅合計：熱泵 11,581,440 ＋ 蒸汽 23,323,082
+  </div>
+</section>
+
+<section>
+  <h2>D · 人員配置（表貳-2）<span class="chip r">必填</span></h2>
+  <div class="row">
+    <div class="field"><label>工頭／現場主管 人數</label><input id="D_sup" type="number" value="1"></div>
+    <div class="field"><label>焊接工 人數</label><input id="D_weld" type="number" value="4"></div>
+    <div class="field"><label>配管工 人數</label><input id="D_pipe" type="number" value="8"></div>
+    <div class="field"><label>儀控／電氣工 人數</label><input id="D_ctrl" type="number" value="3"></div>
+    <div class="field"><label>吊車操作手 人數</label><input id="D_crane" type="number" value="2"></div>
+    <div class="field"><label>安全衛生人員 人數</label><input id="D_safety" type="number" value="1"></div>
+  </div>
+</section>
+
+<section>
+  <h2>E · 預定作業進度（表陸-1）<span class="chip r">必填</span></h2>
+  <div class="row">
+    <div class="field"><label>起工日</label><input id="E_start" type="date"></div>
+    <div class="field"><label>竣工日</label><input id="E_end" type="date"></div>
+    <div class="field"><label>設備交貨日（合約 116/09/10 前或配合現場）<span class="chip y">需確認</span></label><input id="E_delivery" value="116/09/10"></div>
+    <div class="field"><label>尾款驗收時點（合約 驗收或完工後 6 個月）<span class="chip y">需確認</span></label><input id="E_warranty" value="驗收或完工後 6 個月"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>P2 熱泵系統施工 暫估(天)</label><input id="E_p2" type="number"></div>
+    <div class="field"><label>P3 蒸汽系統施工 暫估(天)</label><input id="E_p3" type="number"></div>
+    <div class="field"><label>P4 試壓/洩漏/水質調配(天)</label><input id="E_p4" type="number"></div>
+    <div class="field"><label>P5 單機→聯動→協同試車(天)</label><input id="E_p5" type="number"></div>
+  </div>
+</section>
+
+<section>
+  <h2>F · 施工圖說（監造核定版）<span class="chip r">必填</span></h2>
+  <div class="field"><label>圖號清單（熱泵／蒸汽 系統圖、平面、電氣、儀控；逐行列）</label>
+  <textarea id="F_drawings" placeholder="例：TH-001 熱水系統圖 / ST-001 蒸汽系統圖 / …"></textarea></div>
+</section>
+
+<section>
+  <h2>G · 限制與管制</h2>
+  <div class="row">
+    <div class="field"><label>吊車最大噸級 <span class="chip r">必填</span></label><input id="G_crane" type="number" placeholder="噸"></div>
+    <div class="field"><label>最大吊件 <span class="chip y">需確認</span></label><input id="G_lift" value="熱水儲槽 10,000L／瓦斯蒸汽爐"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>動火管制窗口 <span class="chip r">必填</span></label><input id="G_hotwork" placeholder="例：平日 09:00-17:00，動火許可制"></div>
+    <div class="field"><label>噪音管制窗口 <span class="chip r">必填</span></label><input id="G_noise" placeholder="例：吊運 09:00-17:00"></div>
+  </div>
+  <div class="row">
+    <div class="field"><label>感染管制區域 <span class="chip y">需確認</span></label><input id="G_infection" placeholder="手術／醫養／淨區"></div>
+    <div class="field"><label>進出場動線與窗口 <span class="chip r">必填</span></label><input id="G_access" placeholder="貨車可達之地面交貨（合約明載）"></div>
+  </div>
+</section>
+
+<section>
+  <h2>H · 測試標準與品質表單</h2>
+  <div class="row">
+    <div class="field"><label>熱泵水路試壓值 <span class="chip y">需確認</span></label><input id="H_hydraulic" placeholder="例：1.5×工作壓力"></div>
+    <div class="field"><label>蒸汽氣密/水壓值 <span class="chip r">必填</span></label><input id="H_steam" placeholder="例：工作壓力 10kg/cm²、試壓 15kg/cm²"></div>
+  </div>
+  <div class="field"><label>儀控校準點 <span class="chip r">必填</span></label>
+  <textarea id="H_calibration" placeholder="例：PT 0/50/100℃ 三點；4~20mA 對應 0/滿量程"></textarea></div>
+  <div class="field"><label>蒸汽系統品質表單（CC-004 未含蒸汽）是否需補製 <span class="chip y">需確認</span></label>
+  <select id="H_steam_form"><option value="是">是，補蒸汽版表單</option><option value="否">否，沿用熱泵版</option><option value="未定">未定</option></select></div>
+</section>
+
+<div class="actions">
+  <button onclick="copyJSON()">複製 JSON</button>
+  <button class="sec" onclick="downloadJSON()">下載 JSON</button>
+</div>
+<div class="hint">填完後複製／下載 JSON，回傳給 Hermes 即產出正式 10 章 .docx（照 CC-004 核定版格式）。</div>
+</div>
+
+<script>
+var reqIds=["E_start","E_end","F_drawings","G_crane","G_hotwork","G_noise","G_access","H_steam","H_calibration","D_sup","D_weld","D_pipe","D_ctrl","D_crane","D_safety"];
+function isBad(id){var e=document.getElementById(id);return !(e&&e.value&&e.value.trim());}
+function refresh(){
+  var miss=reqIds.filter(isBad);
+  var s=document.getElementById("status");
+  if(miss.length===0){s.className="status ok";s.innerHTML="✓ 必填項已齊全（可產出正式 docx）";}
+  else{s.className="status miss";document.getElementById("missList").textContent=miss.join("、");}
+}
+function collect(){
+  var o={A:{},C:{scope:"熱泵+蒸汽（已收齊）"},D:{},E:{},F:{},G:{},H:{}};
+  ["A_doc","A_ver","A_owner","A_party"].forEach(function(k){o.A[k]=document.getElementById(k).value;});
+  ["D_sup","D_weld","D_pipe","D_ctrl","D_crane","D_safety"].forEach(function(k){o.D[k]=document.getElementById(k).value;});
+  ["E_start","E_end","E_delivery","E_warranty","E_p2","E_p3","E_p4","E_p5"].forEach(function(k){o.E[k]=document.getElementById(k).value;});
+  o.F.drawings=document.getElementById("F_drawings").value;
+  ["G_crane","G_lift","G_hotwork","G_noise","G_infection","G_access"].forEach(function(k){o.G[k]=document.getElementById(k).value;});
+  ["H_hydraulic","H_steam","H_calibration","H_steam_form"].forEach(function(k){o.H[k]=document.getElementById(k).value;});
+  o._meta={project:"員榮醫院 初步施工計劃",generated:new Date().toISOString(),missing:reqIds.filter(isBad)};
+  return JSON.stringify(o,null,2);
+}
+function copyJSON(){
+  var t=collect();
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(function(){alert("已複製 JSON（"+t.length+" bytes），回傳給 Hermes 即可。");},function(){fallback(t);});}
+  else fallback(t);
+}
+function fallback(t){var p=prompt("請全選複製下方 JSON 後貼回給 Hermes：",t);if(p!==null){var ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand("copy");document.body.removeChild(ta);alert("已複製 JSON。");}}
+function downloadJSON(){
+  var t=collect();var b=new Blob([t],{type:"application/json"});var u=URL.createObjectURL(b);
+  var a=document.createElement("a");a.href=u;a.download="員榮_施工計劃_確認.json";document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u);
+}
+document.querySelectorAll("input,select,textarea").forEach(function(e){e.addEventListener("input",refresh);e.addEventListener("change",refresh);});
+refresh();
+</script>
+</body>
+</html>
